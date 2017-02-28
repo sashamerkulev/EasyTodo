@@ -57,8 +57,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_short_name"
-                    android:inputType="text"
-                    android:maxLines="1" />
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:minLines="2"
+                    android:lines="2"
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -71,9 +74,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_short_description"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:minLines="3"
                     android:lines="3"
-                    android:maxLines="3" />
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
