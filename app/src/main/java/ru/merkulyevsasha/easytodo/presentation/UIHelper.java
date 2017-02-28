@@ -8,7 +8,7 @@ import ru.merkulyevsasha.easytodo.R;
 
 public class UIHelper {
 
-    public static final String getStatusName(Context context, int statusId){
+    public static String getStatusName(Context context, int statusId){
         if (statusId == TaskModel.STATUS_CREATED)
             return context.getString(R.string.task_new_status_dialog_text);
         if (statusId == TaskModel.STATUS_DONE)

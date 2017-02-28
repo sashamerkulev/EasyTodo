@@ -10,7 +10,6 @@ import dagger.Module;
 import dagger.Provides;
 import ru.merkulyevsasha.core.data.TasksRepository;
 import ru.merkulyevsasha.data.DbTasksRepositoryImpl;
-import ru.merkulyevsasha.data.NetTasksRepositoryImpl;
 
 
 @Module

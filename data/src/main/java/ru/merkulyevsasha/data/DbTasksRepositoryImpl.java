@@ -78,6 +78,7 @@ public class DbTasksRepositoryImpl implements TasksRepository {
                         items.add(item);
                     } while (cursor.moveToNext());
                 }
+                cursor.close();
             }
         } finally {
             if (db != null && db.isOpen())
