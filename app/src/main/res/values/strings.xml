@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Список задач</string>
+
+    <string name="get_list_exception_message">Ошибка получения списка задач</string>
+
+    <string name="add_task_message">Задача добавлена успешно</string>
+    <string name="add_task_exception_message">Ошибка добавления задачи</string>
+
+    <string name="update_task_message">Задача обновлена успешно</string>
+    <string name="update_task_exception_message">Ошибка обновления задачи</string>
+
+    <string name="update_status_task_message">Статус задачи изменен успешно</string>
+    <string name="update_status_task_exception_message">Ошибка изменения статуса задачи</string>
+
+    <string name="add_menu_title">Добавить</string>
+    <string name="done_menu_title">Сохранить</string>
+
+
+    <string name="prompt_short_name">Краткое наименование задачи</string>
+    <string name="prompt_short_description">Краткое описание задачи</string>
+    <string name="prompt_expiry_date">Дата выполнения задачи</string>
+    <string name="prompt_expiry_time">Время выполнения задачи</string>
+    <string name="prompt_status">Статус выполнения задачи</string>
+
+    <string name="error_field_required">Требуется ввести значение</string>
+
+    <string name="task_status_dialog_title">Статус</string>
+    <string name="task_new_status_dialog_text">Новая</string>
+    <string name="task_inprogress_status_dialog_text">В работе</string>
+    <string name="task_suspend_status_dialog_text">Отложена</string>
+    <string name="task_done_status_dialog_text">Завершена</string>
+
+
+</resources>
