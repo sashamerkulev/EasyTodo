@@ -7,13 +7,13 @@ import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
+import ru.merkulyevsasha.core.domain.TasksInteractor;
 import ru.merkulyevsasha.easytodo.TodoApp;
-import ru.merkulyevsasha.easytodo.presentation.taskslist.TasksPresenter;
 
 public class TasksService extends Service {
 
     @Inject
-    public TasksPresenter presenter;
+    public TasksInteractor interactor;
 
     @Nullable
     @Override
@@ -31,6 +31,7 @@ public class TasksService extends Service {
             public void run() {
                 try{
                     System.out.println("!!service!!");
+
                 } catch(Exception e){
                     e.printStackTrace();
                 } finally {

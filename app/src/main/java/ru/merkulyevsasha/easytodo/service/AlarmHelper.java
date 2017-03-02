@@ -12,7 +12,7 @@ public class AlarmHelper {
 
     public static final String ALARM_ACTION = "ru.merkulyevsasha.easytodo.START_SERVICE";
 
-    private static final int AFTER_MINUTES = 15;
+    private static final int ALARM_AFTER_MINUTES = 1;
 
     public static void register(Context context){
 
@@ -22,7 +22,7 @@ public class AlarmHelper {
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, AFTER_MINUTES);
+        calendar.add(Calendar.MINUTE, ALARM_AFTER_MINUTES);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
     }
