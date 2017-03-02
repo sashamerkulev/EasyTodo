@@ -32,5 +32,6 @@
     <string name="created_text">Дата создания:</string>
     <string name="expiry_text">Дата исполнения:</string>
 
+    <string name="notification_text">Задач к завершению:</string>
 
 </resources>

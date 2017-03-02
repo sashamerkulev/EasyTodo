@@ -73,7 +73,6 @@ public class TasksActivity extends AppCompatActivity implements MvpTasksView {
         });
         recyclerView.setAdapter(adapter);
 
-        AlarmHelper.register(this);
     }
 
     @Override
@@ -89,7 +88,18 @@ public class TasksActivity extends AppCompatActivity implements MvpTasksView {
         super.onStart();
         if (presenter != null){
             presenter.onStart(this);
-            presenter.load();
+
+            Intent intent = getIntent();
+            ArrayList<Integer> ids = new ArrayList<>();
+            if (intent != null){
+                ids = intent.getIntegerArrayListExtra(TaskActivity.KEY_ID_TASKS);
+            }
+            if (ids == null || ids.size() == 0) {
+                AlarmHelper.register(this);
+                presenter.load();
+            } else {
+                //presenter.load(ids);
+            }
         }
     }
 

@@ -31,6 +31,7 @@ public class TaskActivity extends AppCompatActivity {
     public static final int TASK_RESULT_CODE = 222;
 
     public static final String KEY_TASK = "task";
+    public static final String KEY_ID_TASKS = "task_ids";
 
     private TextView shortName;
     private TextView shortDescription;
