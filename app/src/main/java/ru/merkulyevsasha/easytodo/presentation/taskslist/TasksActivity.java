@@ -18,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.merkulyevsasha.core.domain.TaskModel;
+import ru.merkulyevsasha.easytodo.service.AlarmHelper;
 import ru.merkulyevsasha.easytodo.R;
 import ru.merkulyevsasha.easytodo.TodoApp;
 import ru.merkulyevsasha.easytodo.presentation.UIHelper;
@@ -72,6 +73,7 @@ public class TasksActivity extends AppCompatActivity implements MvpTasksView {
         });
         recyclerView.setAdapter(adapter);
 
+        AlarmHelper.register(this);
     }
 
     @Override

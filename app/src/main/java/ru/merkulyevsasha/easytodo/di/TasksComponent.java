@@ -3,6 +3,7 @@ package ru.merkulyevsasha.easytodo.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import ru.merkulyevsasha.easytodo.service.TasksService;
 import ru.merkulyevsasha.easytodo.presentation.taskslist.TasksActivity;
 
 
@@ -11,5 +12,6 @@ import ru.merkulyevsasha.easytodo.presentation.taskslist.TasksActivity;
 public interface TasksComponent {
 
     void inject(TasksActivity context);
+    void inject(TasksService context);
 
 }

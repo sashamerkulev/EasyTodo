@@ -29,6 +29,8 @@
     <string name="task_inprogress_status_dialog_text">В работе</string>
     <string name="task_suspend_status_dialog_text">Отложена</string>
     <string name="task_done_status_dialog_text">Завершена</string>
+    <string name="created_text">Дата создания:</string>
+    <string name="expiry_text">Дата исполнения:</string>
 
 
 </resources>
