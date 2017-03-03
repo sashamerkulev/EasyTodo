@@ -39,7 +39,7 @@ public class AlarmHelper {
     public static void setNotification(Context context, ArrayList<Integer> ids){
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_done_white_24dp)
+                        .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle(context.getString(R.string.app_name))
                         .setContentText(context.getString(R.string.notification_text)+ids.size())
                         .setAutoCancel(true);

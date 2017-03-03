@@ -34,19 +34,27 @@ public class TasksService extends Service{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try{
+                try {
                     System.out.println("!!service!!");
 
-                    List<TaskModel> models = new ArrayList<>();
-                            //interactor.getTasks();
-                    ArrayList<Integer> ids = new ArrayList<>();
-                    for (TaskModel model :
-                            models) {
-                        ids.add((int)model.getId());
-                    }
-                    if (ids.size() > 0) {
-                        AlarmHelper.setNotification(TasksService.this, ids);
-                    }
+                    interactor.loadTasks(new TasksCallback.LoadTasksCallback() {
+                        @Override
+                        public void loadTasksCallback(List<TaskModel> models) {
+                            ArrayList<Integer> ids = new ArrayList<>();
+                            for (TaskModel model :
+                                    models) {
+                                ids.add((int) model.getId());
+                            }
+                            if (ids.size() > 0) {
+                                AlarmHelper.setNotification(TasksService.this, ids);
+                            }
+                        }
+                    }, new TasksCallback.LoadTasksFailureCallback() {
+                        @Override
+                        public void loadTasksFailureCallback(Exception e) {
+
+                        }
+                    });
 
                 } catch(Exception e){
                     e.printStackTrace();
