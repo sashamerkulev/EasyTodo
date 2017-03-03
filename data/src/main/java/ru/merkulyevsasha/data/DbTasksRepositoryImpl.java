@@ -54,16 +54,14 @@ public class DbTasksRepositoryImpl implements TasksRepository {
         }
     }
 
-    @Override
-    public List<TaskEntity> getTasks() {
-        List<TaskEntity> items = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " where "+STATUS+"<3 order by " + CREATED;
+    private List<TaskEntity> getTasks(String select){
 
+        List<TaskEntity> items = new ArrayList<>();
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(mPath, null);
         try {
             if (db != null) {
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                Cursor cursor = db.rawQuery(select, null);
 
                 if (cursor.moveToFirst()) {
                     do {
@@ -85,6 +83,40 @@ public class DbTasksRepositoryImpl implements TasksRepository {
                 db.close();
         }
         return items;
+
+    }
+
+
+    @Override
+    public List<TaskEntity> getExpiredTasks(long expired){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT  * FROM ");
+        sb.append(TABLE_NAME);
+        sb.append(" where ");
+        sb.append(STATUS);
+        sb.append(" < 3 ");
+        sb.append(" and ");
+        sb.append(EXPIRY);
+        sb.append(" > ");
+        sb.append(expired);
+        sb.append(" order by ");
+        sb.append(CREATED);
+        return getTasks(sb.toString());
+    }
+
+    @Override
+    public List<TaskEntity> getTasks() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT  * FROM ");
+        sb.append(TABLE_NAME);
+        sb.append(" where ");
+        sb.append(STATUS);
+        sb.append(" < 3 ");
+        sb.append(" order by ");
+        sb.append(CREATED);
+        return getTasks(sb.toString());
     }
 
     @Override

@@ -37,7 +37,7 @@ public class TasksService extends Service{
                 try {
                     System.out.println("!!service!!");
 
-                    interactor.loadTasks(new TasksCallback.LoadTasksCallback() {
+                    interactor.loadExpiredTasks(new TasksCallback.LoadTasksCallback() {
                         @Override
                         public void loadTasksCallback(List<TaskModel> models) {
                             ArrayList<Integer> ids = new ArrayList<>();

@@ -13,6 +13,11 @@ public class NetTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
+    public List<TaskEntity> getExpiredTasks(long expired) {
+        return null;
+    }
+
+    @Override
     public long addTask(final TaskEntity task) {
         return -1;
     }

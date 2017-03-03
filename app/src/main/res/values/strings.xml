@@ -33,5 +33,6 @@
     <string name="expiry_text">Дата исполнения:</string>
 
     <string name="notification_text">Задач к завершению:</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

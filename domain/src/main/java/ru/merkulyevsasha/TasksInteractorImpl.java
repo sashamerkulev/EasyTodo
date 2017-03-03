@@ -42,6 +42,25 @@ public class TasksInteractorImpl implements TasksInteractor{
     }
 
     @Override
+    public void loadExpiredTasks(final TasksCallback.LoadTasksCallback loadCallback, final TasksCallback.LoadTasksFailureCallback loadFailureCallback) {
+
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<TaskEntity> tasks = repository.getExpiredTasks(System.currentTimeMillis());
+                    loadCallback.loadTasksCallback(mapper.mapToModel(tasks));
+                } catch(Exception e){
+                    e.printStackTrace();
+                    loadFailureCallback.loadTasksFailureCallback(e);
+                }
+            }
+        });
+
+    }
+
+
+    @Override
     public void addTask(final TaskModel task, final TasksCallback.AddTaskCallback addCallback, final TasksCallback.AddTaskFailureCallback addFailureCallback) {
 
         executor.submit(new Runnable() {
