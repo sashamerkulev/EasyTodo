@@ -104,7 +104,7 @@ public class TasksActivity extends AppCompatActivity implements MvpTasksView {
                 AlarmHelper.register(this);
                 presenter.load();
             } else {
-                //presenter.load(ids);
+                presenter.load(ids);
             }
         }
     }

@@ -1,5 +1,6 @@
 package ru.merkulyevsasha;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -40,6 +41,25 @@ public class TasksInteractorImpl implements TasksInteractor{
         });
 
     }
+
+    @Override
+    public void loadTasks(ArrayList<Integer> ids, final TasksCallback.LoadTasksCallback loadCallback, final TasksCallback.LoadTasksFailureCallback loadFailureCallback) {
+
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<TaskEntity> tasks = repository.getTasks();
+                    loadCallback.loadTasksCallback(mapper.mapToModel(tasks));
+                } catch(Exception e){
+                    e.printStackTrace();
+                    loadFailureCallback.loadTasksFailureCallback(e);
+                }
+            }
+        });
+
+    }
+
 
     @Override
     public void loadExpiredTasks(final TasksCallback.LoadTasksCallback loadCallback, final TasksCallback.LoadTasksFailureCallback loadFailureCallback) {

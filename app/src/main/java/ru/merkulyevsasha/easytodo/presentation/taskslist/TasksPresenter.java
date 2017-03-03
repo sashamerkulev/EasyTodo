@@ -1,6 +1,7 @@
 package ru.merkulyevsasha.easytodo.presentation.taskslist;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.merkulyevsasha.core.callback.TasksCallback;
@@ -56,6 +57,26 @@ public class TasksPresenter implements MvpPresenter{
             }
         });
     }
+
+    public void load(ArrayList<Integer> ids){
+        showProgress();
+        interactor.loadTasks(ids, new TasksCallback.LoadTasksCallback() {
+            @Override
+            public void loadTasksCallback(List<TaskModel> tasks) {
+                hideProgress();
+                if (view != null) {
+                    view.showList(tasks);
+                }
+            }
+        }, new TasksCallback.LoadTasksFailureCallback() {
+            @Override
+            public void loadTasksFailureCallback(Exception e) {
+                hideProgress();
+                showMessage(R.string.load_list_exception_message);
+            }
+        });
+    }
+
 
     public void saveTask(TaskModel task){
         showProgress();

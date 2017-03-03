@@ -3,7 +3,6 @@ package ru.merkulyevsasha.easytodo.service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 
 public class TimeNotification extends BroadcastReceiver {
@@ -19,10 +18,9 @@ public class TimeNotification extends BroadcastReceiver {
             AlarmHelper.register(context);
 
         } else if (action.equals(AlarmHelper.ALARM_ACTION)){
-            Toast.makeText(context.getApplicationContext(), "!! alarm !!", Toast.LENGTH_LONG).show();
-            System.out.println("!!alarm!!");
 
             context.startService(new Intent(context, TasksService.class));
+
         }
     }
 }

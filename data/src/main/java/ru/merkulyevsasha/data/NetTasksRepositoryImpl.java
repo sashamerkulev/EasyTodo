@@ -1,5 +1,6 @@
 package ru.merkulyevsasha.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.merkulyevsasha.core.data.TaskEntity;
@@ -9,6 +10,11 @@ import ru.merkulyevsasha.core.data.TasksRepository;
 public class NetTasksRepositoryImpl implements TasksRepository {
     @Override
     public List<TaskEntity> getTasks() {
+        return null;
+    }
+
+    @Override
+    public List<TaskEntity> getTasks(ArrayList<Integer> ids) {
         return null;
     }
 

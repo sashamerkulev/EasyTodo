@@ -20,7 +20,7 @@ public class AlarmHelper {
 
     public static final String ALARM_ACTION = "ru.merkulyevsasha.easytodo.START_SERVICE";
 
-    private static final int ALARM_AFTER_MINUTES = 1;
+    private static final int ALARM_AFTER_MINUTES = 15;
     private static final int NOTIFICATION_ID = 987;
 
     public static void register(Context context){

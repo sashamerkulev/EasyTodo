@@ -120,6 +120,34 @@ public class DbTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
+    public List<TaskEntity> getTasks(ArrayList<Integer> ids) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT  * FROM ");
+        sb.append(TABLE_NAME);
+        sb.append(" where ");
+        sb.append(STATUS);
+        sb.append(" < 3 ");
+        sb.append(" and ");
+
+        if (ids.size() > 0) {
+            sb.append(" ( ");
+            for (int i = 0; i < ids.size(); i++) {
+                sb.append(" or ");
+                sb.append(ID);
+                sb.append(" = ");
+                sb.append(ids.get(i));
+            }
+            sb.append(" ) ");
+        }
+
+        sb.append(" order by ");
+        sb.append(CREATED);
+        return getTasks(sb.toString());
+    }
+
+
+    @Override
     public long addTask(final TaskEntity task) {
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(mPath, null);
         long id = -1;
