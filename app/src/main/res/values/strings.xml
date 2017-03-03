@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Список задач</string>
 
-    <string name="get_list_exception_message">Ошибка получения списка задач</string>
+    <string name="load_list_exception_message">Ошибка получения списка задач</string>
 
     <string name="add_task_message">Задача добавлена успешно</string>
     <string name="add_task_exception_message">Ошибка добавления задачи</string>

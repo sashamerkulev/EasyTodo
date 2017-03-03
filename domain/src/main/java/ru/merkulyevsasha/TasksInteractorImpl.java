@@ -15,7 +15,6 @@ public class TasksInteractorImpl implements TasksInteractor{
 
     private final TasksRepository repository;
     private final ExecutorService executor;
-    private TasksCallback callback;
     private final TasksMapper mapper;
 
     public TasksInteractorImpl(TasksRepository repository, ExecutorService executor, TasksMapper mapper){
@@ -24,22 +23,18 @@ public class TasksInteractorImpl implements TasksInteractor{
         this.mapper = mapper;
     }
 
-    public void setCallback(TasksCallback callback){
-        this.callback = callback;
-    }
-
     @Override
-    public void getTasks() {
+    public void loadTasks(final TasksCallback.LoadTasksCallback loadCallback, final TasksCallback.LoadTasksFailureCallback loadFailureCallback) {
 
         executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
                     List<TaskEntity> tasks = repository.getTasks();
-                    callback.getTasksCallback(mapper.mapToModel(tasks));
+                    loadCallback.loadTasksCallback(mapper.mapToModel(tasks));
                 } catch(Exception e){
                     e.printStackTrace();
-                    callback.getTasksFailureCallback(e);
+                    loadFailureCallback.loadTasksFailureCallback(e);
                 }
             }
         });
@@ -47,7 +42,7 @@ public class TasksInteractorImpl implements TasksInteractor{
     }
 
     @Override
-    public void addTask(final TaskModel task) {
+    public void addTask(final TaskModel task, final TasksCallback.AddTaskCallback addCallback, final TasksCallback.AddTaskFailureCallback addFailureCallback) {
 
         executor.submit(new Runnable() {
             @Override
@@ -55,10 +50,10 @@ public class TasksInteractorImpl implements TasksInteractor{
                 try {
                     long id = repository.addTask(mapper.mapToEntity(task));
                     task.setId(id);
-                    callback.addTaskCallback(task);
+                    addCallback.addTaskCallback(task);
                 } catch(Exception e){
                     e.printStackTrace();
-                    callback.addTaskFailureCallback(task, e);
+                    addFailureCallback.addTaskFailureCallback(task, e);
                 }
             }
         });
@@ -66,17 +61,17 @@ public class TasksInteractorImpl implements TasksInteractor{
     }
 
     @Override
-    public void updateTask(final TaskModel task) {
+    public void updateTask(final TaskModel task, final TasksCallback.UpdateTaskCallback updateCallback, final TasksCallback.UpdateTaskFailureCallback updateFailureCallback) {
 
         executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
                     repository.updateTask(mapper.mapToEntity(task));
-                    callback.updateTaskCallback(task);
+                    updateCallback.updateTaskCallback(task);
                 } catch(Exception e){
                     e.printStackTrace();
-                    callback.updateTaskFailureCallback(task, e);
+                    updateFailureCallback.updateTaskFailureCallback(task, e);
                 }
             }
         });
@@ -84,17 +79,18 @@ public class TasksInteractorImpl implements TasksInteractor{
     }
 
     @Override
-    public void setTaskStatus(final long id, final int status) {
+    public void updateTaskStatus(final long id, final int status, final TasksCallback.UpdateTaskStatusCallback updateStatusCallback,
+                              final TasksCallback.UpdateTaskStatusFailureCallback updateStatusFailureCallback) {
 
         executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
                     repository.setTaskStatus(id, status);
-                    callback.setTaskStatusCallback(id, status);
+                    updateStatusCallback.updateTaskStatusCallback(id, status);
                 } catch(Exception e){
                     e.printStackTrace();
-                    callback.setTaskStatusFailureCallback(id, status, e);
+                    updateStatusFailureCallback.updateTaskStatusFailureCallback(id, status, e);
                 }
             }
         });

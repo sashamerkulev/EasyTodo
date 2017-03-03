@@ -10,11 +10,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ru.merkulyevsasha.core.callback.TasksCallback;
 import ru.merkulyevsasha.core.domain.TaskModel;
 import ru.merkulyevsasha.core.domain.TasksInteractor;
 import ru.merkulyevsasha.easytodo.TodoApp;
 
-public class TasksService extends Service {
+public class TasksService extends Service{
 
     @Inject
     public TasksInteractor interactor;
@@ -37,12 +38,12 @@ public class TasksService extends Service {
                     System.out.println("!!service!!");
 
                     List<TaskModel> models = new ArrayList<>();
+                            //interactor.getTasks();
                     ArrayList<Integer> ids = new ArrayList<>();
                     for (TaskModel model :
                             models) {
                         ids.add((int)model.getId());
                     }
-                    ids.add(1);
                     if (ids.size() > 0) {
                         AlarmHelper.setNotification(TasksService.this, ids);
                     }
@@ -58,5 +59,4 @@ public class TasksService extends Service {
 
         return super.onStartCommand(intent, flags, startId);
     }
-
 }

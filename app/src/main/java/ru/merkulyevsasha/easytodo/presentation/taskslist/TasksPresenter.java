@@ -10,7 +10,7 @@ import ru.merkulyevsasha.easytodo.R;
 import ru.merkulyevsasha.easytodo.presentation.MvpPresenter;
 import ru.merkulyevsasha.easytodo.presentation.MvpView;
 
-public class TasksPresenter implements MvpPresenter, TasksCallback{
+public class TasksPresenter implements MvpPresenter{
 
     private final TasksInteractor interactor;
 
@@ -18,7 +18,6 @@ public class TasksPresenter implements MvpPresenter, TasksCallback{
 
     public TasksPresenter(TasksInteractor interactor){
         this.interactor = interactor;
-        interactor.setCallback(this);
     }
 
     private void showMessage(int messageId){
@@ -41,74 +40,74 @@ public class TasksPresenter implements MvpPresenter, TasksCallback{
 
     public void load(){
         showProgress();
-        interactor.getTasks();
+        interactor.loadTasks(new TasksCallback.LoadTasksCallback() {
+            @Override
+            public void loadTasksCallback(List<TaskModel> tasks) {
+                hideProgress();
+                if (view != null) {
+                    view.showList(tasks);
+                }
+            }
+        }, new TasksCallback.LoadTasksFailureCallback() {
+            @Override
+            public void loadTasksFailureCallback(Exception e) {
+                hideProgress();
+                showMessage(R.string.load_list_exception_message);
+            }
+        });
     }
 
     public void saveTask(TaskModel task){
         showProgress();
         if (task.getId() == TaskModel.EMPTY_ID) {
-            interactor.addTask(task);
+            interactor.addTask(task, new TasksCallback.AddTaskCallback() {
+                @Override
+                public void addTaskCallback(TaskModel task) {
+                    showMessage(R.string.add_task_message);
+                    hideProgress();
+                }
+            }, new TasksCallback.AddTaskFailureCallback() {
+                @Override
+                public void addTaskFailureCallback(TaskModel task, Exception e) {
+                    showMessage(R.string.add_task_exception_message);
+                    hideProgress();
+                }
+            });
         } else {
-            interactor.updateTask(task);
+            interactor.updateTask(task, new TasksCallback.UpdateTaskCallback() {
+                @Override
+                public void updateTaskCallback(TaskModel task) {
+                    showMessage(R.string.update_task_message);
+                    hideProgress();
+                }
+            }, new TasksCallback.UpdateTaskFailureCallback() {
+                @Override
+                public void updateTaskFailureCallback(TaskModel task, Exception e) {
+                    showMessage(R.string.update_task_exception_message);
+                    hideProgress();
+                }
+            });
         }
     }
 
     public void updateStatus(long id, int status){
         showProgress();
-        interactor.setTaskStatus(id, status);
-    }
-
-    @Override
-    public void getTasksCallback(List<TaskModel> tasks) {
-        hideProgress();
-        if (view != null) {
-            view.showList(tasks);
-        }
-    }
-
-    @Override
-    public void getTasksFailureCallback(Exception e) {
-        hideProgress();
-        showMessage(R.string.get_list_exception_message);
-    }
-
-    @Override
-    public void addTaskCallback(TaskModel task) {
-        showMessage(R.string.add_task_message);
-        hideProgress();
-    }
-
-    @Override
-    public void addTaskFailureCallback(TaskModel task, Exception e) {
-        showMessage(R.string.add_task_exception_message);
-        hideProgress();
-    }
-
-    @Override
-    public void updateTaskCallback(TaskModel task) {
-        showMessage(R.string.update_task_message);
-        hideProgress();
-    }
-
-    @Override
-    public void updateTaskFailureCallback(TaskModel task, Exception e) {
-        showMessage(R.string.update_task_exception_message);
-        hideProgress();
-    }
-
-    @Override
-    public void setTaskStatusCallback(long id, int status) {
-        showMessage(R.string.update_status_task_message);
-        hideProgress();
-        if (view != null) {
-            view.changedTaskStatus(id, status);
-        }
-    }
-
-    @Override
-    public void setTaskStatusFailureCallback(long id, int status, Exception e) {
-        showMessage(R.string.update_status_task_exception_message);
-        hideProgress();
+        interactor.updateTaskStatus(id, status, new TasksCallback.UpdateTaskStatusCallback() {
+            @Override
+            public void updateTaskStatusCallback(long id, int status) {
+                showMessage(R.string.update_status_task_message);
+                hideProgress();
+                if (view != null) {
+                    view.changedTaskStatus(id, status);
+                }
+            }
+        }, new TasksCallback.UpdateTaskStatusFailureCallback() {
+            @Override
+            public void updateTaskStatusFailureCallback(long id, int status, Exception e) {
+                showMessage(R.string.update_status_task_exception_message);
+                hideProgress();
+            }
+        });
     }
 
     @Override
